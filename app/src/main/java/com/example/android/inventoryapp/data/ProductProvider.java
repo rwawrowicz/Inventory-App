@@ -8,9 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.telephony.PhoneNumberUtils;
 import android.util.Log;
-import android.util.Patterns;
 
 import com.example.android.inventoryapp.R;
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;

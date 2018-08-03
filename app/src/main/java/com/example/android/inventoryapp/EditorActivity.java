@@ -379,7 +379,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the pet.
-                deletePet();
+                deleteProduct();
                 finish();
             }
         });
@@ -401,8 +401,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Perform the deletion of the pet in the database.
      */
-    private void deletePet() {
-        // TODO: Implement this method
+    private void deleteProduct() {
         if (mCurrentProductUri != null) {
             int rowsDeleted = getContentResolver().delete(
                     mCurrentProductUri,

@@ -67,5 +67,13 @@
     <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
     <string name="cancel">Cancel</string>
 
+    <string name="sell_button">SELL</string>
+    <string name="in_stock">In stock: %1$d</string>
+    <string name="price_currency">$%1$d</string>
+    <string name="quantity_equal_zero">Item out of stock!</string>
+    <string name="product_sold">Product sold</string>
+    <string name="unable_to_sell_product">Unable to sell product</string>
+
+
 
 </resources>
