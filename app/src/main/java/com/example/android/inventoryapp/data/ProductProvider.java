@@ -105,7 +105,7 @@ public class ProductProvider extends ContentProvider {
             case PRODUCT_ID:
                 return ProductEntry.CONTENT_ITEM_TYPE;
             default:
-                throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
+                throw new IllegalStateException(getContext().getResources().getString(R.string.get_typ_error, uri, match));
         }
     }
 
@@ -117,7 +117,7 @@ public class ProductProvider extends ContentProvider {
             case PRODUCTS:
                 return insertProduct(uri, contentValues);
             default:
-                throw new IllegalArgumentException("Insertion is not supported for " + uri);
+                throw new IllegalArgumentException(getContext().getResources().getString(R.string.insertion_not_supported_error, uri));
         }
     }
 
@@ -193,7 +193,7 @@ public class ProductProvider extends ContentProvider {
                 rowsDeleted = database.delete(ProductEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
-                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+                throw new IllegalArgumentException(getContext().getResources().getString(R.string.deletion_not_supported_error, uri));
         }
         // If 1 or more rows were deleted, then notify all listeners that the data at the
         // given URI has changed
@@ -219,7 +219,7 @@ public class ProductProvider extends ContentProvider {
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateProduct(uri, contentValues, selection, selectionArgs);
             default:
-                throw new IllegalArgumentException("Update is not supported for " + uri);
+                throw new IllegalArgumentException(getContext().getResources().getString(R.string.deletion_not_supported_error, uri));
         }
     }
 
