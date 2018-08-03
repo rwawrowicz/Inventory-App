@@ -1,3 +1,71 @@
 <resources>
     <string name="app_name">Inventory App</string>
+    <string name="action_1">Action 1</string>
+    <string name="action_delete_all_entries">Delete all entries</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+    <string name="editor_activity_title">Add new product</string>
+
+    <!-- Title for the activity to add a new pet [CHAR LIMIT=20] -->
+    <string name="editor_activity_title_new_pet">Add new product</string>
+
+    <!-- Label for overview category of attributes in the editor [CHAR LIMIT=30] -->
+    <string name="product_name">Product name</string>
+
+    <!-- Label for gender information in the editor [CHAR LIMIT=30] -->
+    <string name="quantity">Quantity</string>
+
+    <!-- Label for measurement information in the editor [CHAR LIMIT=30] -->
+    <string name="supplier">Supplier</string>
+    <string name="hint_supplier">Name</string>
+
+    <!-- Text hint for name field in the editor [CHAR LIMIT=30] -->
+    <string name="hint_product_name">Name</string>
+
+    <!-- Units for weight of the pet (kilograms) [CHAR LIMIT=5] -->
+    <string name="currency">$</string>
+    <string name="price">Price</string>
+    <string name="minus_button">-</string>
+    <string name="plus_button">+</string>
+    <string name="supplier_phone">Supplier phone</string>
+    <string name="hint_supplier_phone">Phone</string>
+    <string name="decrease_error">Quantity can not be less than 0</string>
+    <string name="increase_error">Quantity can not be more than 1000</string>
+    <string name="empty_fields_error">Please fill up all fields</string>
+    <string name="name_empty">Product name field can not be empty</string>
+    <string name="price_empty">Price field can not be empty</string>
+    <string name="price_equal_zero">Price has must be more than 0</string>
+    <string name="quantity_empty">Quantity field can not be empty</string>
+    <string name="supplier_name_empty">Supplier name field can not be empty</string>
+    <string name="invalid_phone">Invalid phone number</string>
+    <string name="empty_view_text">No products in the database.\nAdd a new product to see it on the list.</string>
+    <string name="new_product_insert">Add new product</string>
+    <string name="product_update">Edit product</string>
+    <string name="editor_insert_product_failed">Product was not saved!</string>
+    <string name="editor_insert_product_successful">Product saved in DB!</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+
+    <!-- Toast message in editor when current pet was successfully deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_pet_successful">Pet deleted</string>
+
+    <!-- Toast message in editor when current pet has failed to be deleted [CHAR LIMIT=NONE] -->
+    <string name="editor_delete_pet_failed">Error with deleting pet</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this pet?</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+
 </resources>
