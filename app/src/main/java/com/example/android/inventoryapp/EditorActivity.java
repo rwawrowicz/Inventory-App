@@ -84,7 +84,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierEditText = findViewById(R.id.edit_supplier);
         mSupplierPhoneEditText = findViewById(R.id.edit_supplier_phone);
         mCallSupplier = findViewById(R.id.call_supplier);
-        final String supplierPhoneString = mCallSupplier.getText().toString().trim();
+
 
         mQuantity = 0;
         displayQuantity();
@@ -96,6 +96,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mCallSupplier.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + supplierPhoneString));
                 startActivity(intent);
@@ -133,23 +134,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String priceString = mPriceEditText.getText().toString().trim();
         String supplierString = mSupplierEditText.getText().toString().trim();
         String supplierPhoneString = mSupplierPhoneEditText.getText().toString().trim();
+        int quantity = mQuantity;
 
-        if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString) || TextUtils.isEmpty(supplierString) || TextUtils.isEmpty(supplierPhoneString)){
+        if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString) || TextUtils.isEmpty(supplierString) || TextUtils.isEmpty(supplierPhoneString) || quantity < 0){
             Toast.makeText(this, getResources().getString(R.string.empty_fields_error), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this,"Empty fields", Toast.LENGTH_SHORT).show();
         } else {
 
-            /**
-            // Create database helper
-            ProductDbHelper mDbHelper = new ProductDbHelper(this);
-
-            // Gets the database in write mode
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-             */
             // Create a ContentValues object where column names are the keys,
             // and product attributes from the editor are the values.
-            int quantity = mQuantity;
             int price = Integer.parseInt(priceString);
             ContentValues values = new ContentValues();
             values.put(ProductEntry.COLUMN_PRODUCT_NAME, nameString);
@@ -163,7 +155,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             if (mCurrentProductUri == null) {
                 // This is a NEW product, so insert a new product into the provider,
                 // returning the content URI for the new product.
-                Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
+                Uri newUri = null;
+                try {
+                    newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
+                } catch(IllegalArgumentException e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
                 // Show a toast message depending on whether or not the insertion was successful.
                 if (newUri == null) {
                     // If the new content URI is null, then there was an error with insertion.
@@ -173,13 +171,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // Otherwise, the insertion was successful and we can display a toast.
                     Toast.makeText(this, getString(R.string.editor_insert_product_successful),
                             Toast.LENGTH_SHORT).show();
+                    // Exit activity
+                    finish();
                 }
             } else {
                 // Otherwise this is an EXISTING product, so update the product with content URI: mCurrentPetUri
                 // and pass in the new ContentValues. Pass in null for the selection and selection args
                 // because mCurrentPetUri will already identify the correct row in the database that
                 // we want to modify.
-                int rowsAffected = getContentResolver().update(mCurrentProductUri, values, null, null);
+                int rowsAffected = 0;
+                try {
+                    rowsAffected = getContentResolver().update(mCurrentProductUri, values, null, null);
+                } catch(IllegalArgumentException e) {
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
                 // Show a toast message depending on whether or not the update was successful.
                 if (rowsAffected == 0) {
                     // If no rows were affected, then there was an error with the update.
@@ -189,6 +194,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // Otherwise, the update was successful and we can display a toast.
                     Toast.makeText(this, getString(R.string.editor_insert_product_successful),
                             Toast.LENGTH_SHORT).show();
+                    // Exit activity
+                    finish();
                 }
             }
         }
@@ -210,8 +217,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_save:
                 // Save product to database
                 saveProduct();
-                // Exit activity
-                finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -258,7 +263,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
         // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
+        // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.unsaved_changes_dialog_msg);
         builder.setPositiveButton(R.string.discard, discardButtonClickListener);
@@ -301,8 +306,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (mQuantity > 0) {
             mQuantity--;
         } else {
-            //Toast.makeText(this, getResources().getString(R.string.increase_error), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Decrease error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.decrease_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -310,8 +314,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (mQuantity < 1000) {
             mQuantity++;
         } else {
-            //Toast.makeText(this, getResources().getString(R.string.increase_error), Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, "Increase error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.increase_error), Toast.LENGTH_SHORT).show();
         }
     }
 
